@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Frontend\IndexController; 
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,6 @@ use App\Http\Controllers\Backend\AdminProfileController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function(){
 	Route::get('/login', [AdminController::class, 'loginForm']);
@@ -39,8 +37,15 @@ Route::get('/admin/change/password',[AdminProfileController::class, 'AdminChange
 Route::post('/update/change/password',[AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
 
 
-
+// User All Route
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    $id = Auth::user()->id;
+    $user = User::find($id);
+    return view('dashboard', compact('user'));
 })->name('dashboard');
+
+Route::get('/',[IndexController::class, 'index']);
+Route::get('/user/logout',[IndexController::class, 'UserLogout'])->name('user.logout');
+Route::get('/user/profile',[IndexController::class, 'UserProfile'])->name('user.profile');
+Route::post('/user/profile/store',[IndexController::class, 'UserProfileStore'])->name('user.profile.store');
