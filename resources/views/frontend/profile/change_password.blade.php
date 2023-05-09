@@ -1,7 +1,6 @@
 @extends('frontend.main_master')
 
 @section('content')
-
 <div class="body-content">
     <div class="container">
         <div class="row">
@@ -12,6 +11,7 @@
                     alt="" style="border-radius: 50%; height: 100%; width: 100%;">
                 <br>
                 <br>
+
                 <ul class="list-group list-group-flush">
                     <a class="btn btn-primary btn-sm btn-block" href="{{ route('dashboard') }}">Home</a>
                     <a class="btn btn-primary btn-sm btn-block" href="{{ route('user.profile') }}">Profile Update</a>
@@ -25,28 +25,24 @@
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <h3 class="text-center"> <span class="text-danger">Hi....</span>
-                    <strong>{{ Auth::user()->name }}</strong> Update Your Profile
+                    <h3 class="text-center"> <span class="text-danger">Change password</span>
                     </h3>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('user.profile.store') }}" enctype="multipart/form-data" >
+                        <form method="POST" action="{{ route('user.password.update') }}">
                             @csrf
 
                             <div class="form-group">
-                                <label class="info-title" for="name">Name</label>
-                                <input type="text" name="name" value="{{ $user->name }}" class="form-control">
+                                <label class="info-title" for="name">Current Password</label>
+                                <input id="current_password" type="password" name="oldpassword" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="info-title" for="email">Email</label>
-                                <input type="email" name="email" value="{{ $user->email }}" class="form-control">
+                                <label class="info-title" for="email">New Password</label>
+                                <input id="password" type="password" name="password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="info-title" for="phone">Phone</label>
-                                <input type="text" name="phone" value="{{ $user->phone }}" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="info-title" for="profile">User Image</label>
-                                <input type="file" name="profile_photo_path"  class="form-control">
+                                <label class="info-title" for="phone">Confirm Password</label>
+                                <input id="password_confirmation" type="password" name="password_confirmation"
+                                    class="form-control">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-danger">Update</button>

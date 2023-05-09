@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
@@ -51,4 +52,37 @@ class IndexController extends Controller
 
         return Redirect()->route('dashboard')->with($notification);
     }
+    public function UserChangePassword(){
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        return view('frontend.profile.change_password', compact('user'));
+    }
+
+    public function UserPasswordUpdate(Request $request)
+    {
+
+        $validateData = $request->validate([
+            'oldpassword' => 'required',
+            'password' => 'required|confirmed',
+        ],[
+            'password.confirmed' => 'The password confirmation does not match.',
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+
+        if(Hash::check($request->oldpassword, $hashedPassword)) {
+            $user = User::find(Auth::id());
+            $user->password = Hash::make(trim($request->password));
+            $user->save();
+            Auth::logout();
+            return redirect()->route('user.logout');
+        }else {
+            $notification = array(
+                'message' => 'Old Password is Incorrect!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+
 }

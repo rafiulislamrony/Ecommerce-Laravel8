@@ -12,12 +12,12 @@
                 alt="" style="border-radius: 50%; height: 100%; width: 100%;">
                     <br>
                     <br>
-                <ul class="list-group list-group-flush">
-                    <a class="btn btn-primary btn-sm btn-block" href="">Home</a>
-                    <a class="btn btn-primary btn-sm btn-block" href="{{ route('user.profile') }}">Profile Update</a>
-                    <a class="btn btn-primary btn-sm btn-block" href="">Change Password</a>
-                    <a class="btn btn-danger btn-sm btn-block" href="{{ route('user.logout') }}">Logout</a>
-                </ul>
+                    <ul class="list-group list-group-flush">
+                        <a class="btn btn-primary btn-sm btn-block" href="{{ route('dashboard') }}">Home</a>
+                        <a class="btn btn-primary btn-sm btn-block" href="{{ route('user.profile') }}">Profile Update</a>
+                        <a class="btn btn-primary btn-sm btn-block" href="{{ route('change.password') }}">Change Password</a>
+                        <a class="btn btn-danger btn-sm btn-block" href="{{ route('user.logout') }}">Logout</a>
+                    </ul>
 
             </div>
             <div class="col-md-2">
