@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Models\User;
 
@@ -66,14 +67,12 @@ Route::prefix('brand')->group(function(){
     Route::get('/delete/{id}',[BrandController::class, 'BrandDelete'])->name('brand.delete');
 });
 
-
-
 // Admin Category All Route
 Route::prefix('category')->group(function(){
     Route::get('/view',[CategoryController::class, 'CategoryView'])->name('all.category');
     Route::post('/store',[CategoryController::class, 'CategoryStore'])->name('category.store');
     Route::get('/edit/{id}',[CategoryController::class, 'CategoryEdit'])->name('category.edit');
-    Route::post('/update',[CategoryController::class, 'CategoryUpdate'])->name('category.update');
+    Route::post('/update/{id}',[CategoryController::class, 'CategoryUpdate'])->name('category.update');
     Route::get('/delete/{id}',[CategoryController::class, 'CategoryDelete'])->name('category.delete');
 
     // Admin Sub Category All Routes all.subcategory
@@ -88,11 +87,14 @@ Route::prefix('category')->group(function(){
     Route::get('/subcategory/ajax/{category_id}', [SubCategoryController::class, 'GetSubCategory']);
     Route::post('/sub/sub/store',[SubCategoryController::class, 'SubSubCategoryStore'])->name('subsubcategory.store');
     Route::get('/sub/sub/edit/{id}',[SubCategoryController::class, 'SubSubCategoryEdit'])->name('subsubcategory.edit');
-
     Route::post('/update',[SubCategoryController::class, 'SubSubCategoryUpdate'])->name('subsubcategory.update');
     Route::get('/sub/sub/delete/{id}',[SubCategoryController::class, 'SubSubCategoryDelete'])->name('subsubcategory.delete');
 
-
 });
 
+// Admin Products All Route
+Route::prefix('product')->group(function(){
+    Route::get('/add',[ProductController::class, 'AddProduct'])->name('add-product');
 
+
+});
