@@ -16,7 +16,6 @@
                     <div class="box-body">
                         <form method="post" action="{{ route('category.update', $category->id) }}" enctype="multipart/form-data" >
                             @csrf
- 
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">

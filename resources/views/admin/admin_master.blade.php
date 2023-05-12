@@ -54,6 +54,12 @@
 
     <script src="{{ asset('../assets/vendor_components/datatable/datatables.min.js')}}"></script>
     <script src="{{ asset('backend/js/pages/data-table.js')}}"></script>
+    <!-- Tags Input -->
+    <script src="{{ asset('../assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js') }}"></script>
+    <!-- Ck Editor Input -->
+    <script src="{{ asset('../assets/vendor_components/ckeditor/ckeditor.js') }}"></script>
+	<script src="{{ asset('../assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js') }}"></script>
+	<script src="{{ asset('backend/js/pages/editor.js') }}"></script>
 
     <!-- Sunny Admin App -->
     <script src="{{ asset('backend/js/template.js')}}"></script>
@@ -85,7 +91,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
- 
+
     <script type="text/javascript">
         $(function(){
         $(document).on('click','#delete',function(e){

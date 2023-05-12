@@ -30,8 +30,7 @@ class CreateProductsTable extends Migration
             $table->string('product_size_en')->nullable();
             $table->string('product_size_hin')->nullable();
             $table->string('product_color_en');
-            $table->string('product_color_hin');
-            $table->string('subsubcategory_name_en');
+            $table->string('product_color_hin'); 
             $table->string('selling_price');
             $table->string('discount_price')->nullable();
             $table->string('short_descp_en');
