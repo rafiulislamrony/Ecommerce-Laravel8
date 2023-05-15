@@ -23,22 +23,24 @@
 
                 <div class="cnt-block">
                     <ul class="list-unstyled list-inline">
-                        <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle"
-                                data-hover="dropdown" data-toggle="dropdown"><span class="value">USD </span><b
-                                    class="caret"></b></a>
+                        <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
+                                data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">USD</a></li>
                                 <li><a href="#">INR</a></li>
                                 <li><a href="#">GBP</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle"
-                                data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b
-                                    class="caret"></b></a>
+                        <li class="dropdown dropdown-small">
+                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span
+                                    class="value">Language </span><b class="caret"></b>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">French</a></li>
-                                <li><a href="#">German</a></li>
+                                @if(session()->get('language') == 'hindi')
+                                <li><a href="{{ route('english.language') }}">English</a></li>
+                                @else
+                                <li><a href="{{ route('hindi.language') }}">हिन्दी</a></li>
+                                @endif
                             </ul>
                         </li>
                     </ul>
@@ -58,7 +60,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                     <!-- ============================================================= LOGO ============================================================= -->
-                    <div class="logo"> <a href="{{ url('/')  }}"> <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="logo"> </a>
+                    <div class="logo"> <a href="{{ url('/')  }}"> <img
+                                src="{{ asset('frontend/assets/images/logo.png') }}" alt="logo"> </a>
                     </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->
@@ -116,7 +119,8 @@
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <div class="image"> <a href="detail.html"><img
-                                                        src="{{ asset('frontend/assets/images/cart.jpg') }}" alt=""></a> </div>
+                                                        src="{{ asset('frontend/assets/images/cart.jpg') }}" alt=""></a>
+                                            </div>
                                         </div>
                                         <div class="col-xs-7">
                                             <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
@@ -236,7 +240,8 @@
 
                                                     <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
                                                         <img class="img-responsive"
-                                                            src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}" alt="">
+                                                            src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}"
+                                                            alt="">
                                                     </div>
                                                     <!-- /.yamm-content -->
                                                 </div>
@@ -317,8 +322,7 @@
                                                             <li><a href="#">Memory Cards</a></li>
                                                         </ul>
                                                     </div>
-                                                    <div
-                                                        class="col-xs-12 col-sm-12 col-md-4 col-menu custom-banner">
+                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-menu custom-banner">
                                                         <a href="#"><img alt=""
                                                                 src="{{ asset('frontend/assets/images/banners/banner-side.png') }}"></a>
                                                     </div>
@@ -357,8 +361,7 @@
                                                             <li><a href="terms-conditions.html">Terms and
                                                                     Condition</a></li>
                                                             <li><a href="track-orders.html">Track Orders</a></li>
-                                                            <li><a
-                                                                    href="product-comparison.html">Product-Comparison</a>
+                                                            <li><a href="product-comparison.html">Product-Comparison</a>
                                                             </li>
                                                             <li><a href="faq.html">FAQ</a></li>
                                                             <li><a href="404.html">404</a></li>

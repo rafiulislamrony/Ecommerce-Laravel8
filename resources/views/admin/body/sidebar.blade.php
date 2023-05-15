@@ -9,7 +9,7 @@
 
         <div class="user-profile">
             <div class="ulogo">
-                <a href="index.html">
+                <a href="{{ url('admin/dashboard') }}">
                     <!-- logo for regular state and mobile devices -->
                     <div class="d-flex align-items-center justify-content-center">
                         <img src="{{ asset('backend/images/logo-dark.png') }}" alt="">
@@ -81,6 +81,22 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="treeview {{ ($prefix == '/slider')? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="file"></i>
+                    <span>Slider</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ ($route == 'manage-slider')? 'active' : '' }}" >
+                        <a href="{{ route('manage-slider') }}"><i class="ti-more"></i>Manage Slider</a>
+                    </li>
+                </ul>
+            </li>
+
 
             <li class="header nav-small-cap">User Interface</li>
 

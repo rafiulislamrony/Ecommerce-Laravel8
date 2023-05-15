@@ -17,10 +17,12 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Product Image</th>
-                                        <th>Product Name English</th>
-                                        <th>Product Name Hindi</th>
+                                        <th>Image</th>
+                                        <th>Product English</th>
+                                        <th>Product Price</th>
                                         <th>Quantity</th>
+                                        <th>Discount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -28,18 +30,60 @@
                                     @foreach ($products as $item)
                                     <tr>
                                         <td>
-                                            <img src="{{ asset($item->product_thambnial) }}" style="width: 60px; height: 50px" alt="">
+                                            <img src="{{ asset($item->product_thambnial) }}"
+                                                style="width: 60px; height: 50px" alt="">
                                         </td>
                                         <td>{{ $item->product_name_en }}</td>
-                                        <td>{{ $item->product_name_hin }}</td>
-                                        <td>{{ $item->product_qty }}</td>
+                                        <td>{{ $item->selling_price }} $</td>
+                                        <td>{{ $item->product_qty }} Pic</td>
                                         <td>
-                                            <a href="{{ route('category.edit', $item->id) }}" class="btn btn-info" title="Edit Data" >
-                                             <i class="fa fa-pencil"></i>
+                                            @if ($item->discount_price == NULL)
+                                            <span class="badge badge-pill badge-success">No Discount </span>
+                                            @else
+                                                @php
+                                                    $amount = $item->selling_price - $item->discount_price;
+                                                    $discount = ($amount/$item->selling_price) * 100;
+                                                @endphp
+                                                <span class="badge badge-pill badge-success"> {{ round($discount) }} % </span>
+                                            @endif
+
+                                        </td>
+
+                                        <td>
+                                            @if ($item->status == 1)
+                                            <span class="badge badge-pill badge-success">Active </span>
+                                            @else
+                                            <span class="badge badge-pill badge-danger">InActive </span>
+                                            @endif
+                                        </td>
+
+                                        <td>
+                                            <a href="{{ route('product.view', $item->id) }}" class="btn btn-primary"
+                                                title="Product Details Data">
+                                                <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('category.delete', $item->id) }}" id="delete" class="btn btn-danger" title="Delete Data">
+
+                                            <a href="{{ route('product.edit', $item->id) }}" class="btn btn-info"
+                                                title="Edit Data">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+
+                                            <a href="{{ route('product.delete', $item->id) }}" id="delete"
+                                                class="btn btn-danger" title="Delete Data">
                                                 <i class="fa fa-trash"></i>
                                             </a>
+
+                                            @if ($item->status == 1)
+                                            <a href="{{ route('product.inactive', $item->id) }}" class="btn btn-danger"
+                                                title="InActive Now">
+                                                <i class="fa fa-arrow-down"></i>
+                                            </a>
+                                            @else
+                                            <a href="{{ route('product.active', $item->id) }}" class="btn btn-success"
+                                                title="Active Now">
+                                                <i class="fa fa-arrow-up"></i>
+                                            </a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
