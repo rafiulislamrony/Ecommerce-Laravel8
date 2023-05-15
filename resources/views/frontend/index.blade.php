@@ -2,6 +2,10 @@
 
 @section('content')
 
+@section('title')
+Home Blackbox - Online Shop
+@endsection
+
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
     <div class="container">
         <div class="row">
@@ -1102,7 +1106,7 @@
                                             <div class="product">
                                                 <div class="product-image">
                                                     <div class="image">
-                                                        <a href="detail.html">
+                                                        <a href="{{ url('product/details/'.$product->id. '/'.$product->product_slug_en) }}">
                                                             <img src="{{ asset($product->product_thambnial) }}" alt="">
                                                         </a>
                                                     </div>
@@ -1123,7 +1127,7 @@
                                                 <!-- /.product-image -->
 
                                                 <div class="product-info text-left">
-                                                    <h3 class="name"><a href="detail.html">
+                                                    <h3 class="name"><a href="{{ url('product/details/'.$product->id. '/'.$product->product_slug_en) }}">
                                                             @if(session()->get('language') == 'hindi') {{
                                                             $product->product_name_hin }} @else {{
                                                             $product->product_name_en }} @endif
@@ -1138,9 +1142,8 @@
                                                     </div>
                                                     @else
                                                     <div class="product-price">
-                                                        <span class="price"> {{ $product->selling_price }} </span>
-                                                        <span class="price-before-discount">{{ $product->discount_price
-                                                            }} </span>
+                                                        <span class="price"> {{ $product->discount_price }} </span>
+                                                        <span class="price-before-discount">{{ $product->selling_price }} </span>
                                                     </div>
                                                     @endif
                                                     <!-- /.product-price -->
@@ -1203,7 +1206,7 @@
                                             <div class="product">
                                                 <div class="product-image">
                                                     <div class="image">
-                                                        <a href="detail.html">
+                                                        <a href="{{ url('product/details/'.$product->id. '/'.$product->product_slug_en) }}">
                                                             <img src="{{ asset($product->product_thambnial) }}" alt="">
                                                         </a>
                                                     </div>
@@ -1224,7 +1227,7 @@
                                                 <!-- /.product-image -->
 
                                                 <div class="product-info text-left">
-                                                    <h3 class="name"><a href="detail.html">
+                                                    <h3 class="name"><a href="{{ url('product/details/'.$product->id. '/'.$product->product_slug_en) }}">
                                                             @if(session()->get('language') == 'hindi') {{
                                                             $product->product_name_hin }} @else {{
                                                             $product->product_name_en }} @endif
@@ -1262,11 +1265,14 @@
                                                             <li class="lnk wishlist"> <a data-toggle="tooltip"
                                                                     class="add-to-cart" href="detail.html"
                                                                     title="Wishlist"> <i class="icon fa fa-heart"></i>
-                                                                </a> </li>
-                                                            <li class="lnk"> <a data-toggle="tooltip"
-                                                                    class="add-to-cart" href="detail.html"
-                                                                    title="Compare"> <i class="fa fa-signal"
-                                                                        aria-hidden="true"></i> </a> </li>
+                                                                </a>
+                                                            </li>
+                                                            <li class="lnk">
+                                                                <a data-toggle="tooltip" class="add-to-cart"
+                                                                    href="detail.html" title="Compare">
+                                                                    <i class="fa fa-signal" aria-hidden="true"></i>
+                                                                </a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                     <!-- /.action -->

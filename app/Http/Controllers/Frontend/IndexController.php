@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Slider;
 use App\Models\Product;
+use App\Models\MultiImage;
 use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
@@ -63,7 +64,6 @@ class IndexController extends Controller
         $user = User::find($id);
         return view('frontend.profile.change_password', compact('user'));
     }
-
     public function UserPasswordUpdate(Request $request)
     {
 
@@ -90,5 +90,13 @@ class IndexController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+    public function ProductDetails($id,$slug){
+        $multiImg = MultiImage::where('product_id', $id)->get();
+        $product = Product::findOrfail($id);
+        return view('frontend.product.product_details', compact('product', 'multiImg'));
+    }
+
+
+
 
 }
