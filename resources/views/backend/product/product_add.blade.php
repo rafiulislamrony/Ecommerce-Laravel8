@@ -209,7 +209,7 @@
                                                 <h5>Product Color Hindi<span class="text-danger">*</span></h5>
                                                 <div class="controls">
                                                     <input type="text" name="product_color_hin" class="form-control"
-                                                        value="orange, red, black" data-role="tagsinput" required="" />
+                                                        value="नारंगी, लाल, काला" data-role="tagsinput" required="" />
                                                     @error('product_color_hin')
                                                     <span class="text-danger">{{ $message }} </span>
                                                     @enderror
@@ -235,8 +235,7 @@
                                             <div class="form-group">
                                                 <h5>Product Discount Price<span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="text" name="discount_price" class="form-control"
-                                                        required="">
+                                                    <input type="text" name="discount_price" class="form-control">
                                                     @error('discount_price')
                                                     <span class="text-danger">{{ $message }} </span>
                                                     @enderror

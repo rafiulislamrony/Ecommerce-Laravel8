@@ -259,7 +259,7 @@
                                                 <div class="controls">
                                                     <input type="text" name="discount_price"
                                                         value="{{ $products->discount_price }}" class="form-control"
-                                                        required="">
+                                                        >
                                                     @error('discount_price')
                                                     <span class="text-danger">{{ $message }} </span>
                                                     @enderror
