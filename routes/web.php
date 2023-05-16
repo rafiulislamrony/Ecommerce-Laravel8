@@ -135,3 +135,5 @@ Route::get('/language/hindi', [LanguageController::class, 'Hindi'])->name('hindi
 Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
 /// Product Details page Url ////
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
+/// Frontend Product Tags ////
+Route::get('/product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);

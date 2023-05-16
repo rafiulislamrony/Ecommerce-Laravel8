@@ -13,102 +13,9 @@ Home Blackbox - Online Shop
             <!-- ============================================== SIDEBAR ============================================== -->
             <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
 
-                <!-- ================================== TOP NAVIGATION ================================== -->
-                <div class="side-menu animate-dropdown outer-bottom-xs">
-                    <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
-                    <nav class="yamm megamenu-horizontal">
-                        <ul class="nav">
-                            @foreach ($categories as $category)
-                            <!-- Start Category foreach  -->
-
-                            <li class="dropdown menu-item">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon {{ $category->category_icon }}" aria-hidden="true"></i>
-
-                                    @if(session()->get('language') == 'hindi') {{ $category->category_name_hin }}
-                                    @else {{ $category->category_name_en }} @endif
-
-                                </a>
-                                <ul class="dropdown-menu mega-menu">
-                                    <li class="yamm-content">
-                                        <div class="row">
-
-                                            @php
-                                            $subcategories = App\Models\SubCategory::where('category_id',
-                                            $category->id)->orderby('subcategory_name_en',
-                                            'ASC')->get();
-                                            @endphp
-
-                                            @foreach ($subcategories as $subcategory)
-                                            <div class="col-sm-12 col-md-3">
-                                                <h2 class="title">
-                                                    @if(session()->get('language') == 'hindi') {{
-                                                    $subcategory->subcategory_name_hin }} @else {{
-                                                    $subcategory->subcategory_name_en }} @endif
-                                                </h2>
-                                                @php
-                                                $subsubcategories =
-                                                App\Models\SubSubCategory::where('subcategory_id',
-                                                $subcategory->id)->orderby('subsubcategory_name_en',
-                                                'ASC')->get();
-                                                @endphp
-                                                @foreach ( $subsubcategories as $subsubcategory)
-                                                <!-- Start Sub Sub category foreach  -->
-                                                <ul class="links list-unstyled">
-                                                    <li>
-                                                        <a href="#">
-                                                            @if(session()->get('language') == 'hindi') {{
-                                                            $subsubcategory->subsubcategory_name_hin }} @else {{
-                                                            $subsubcategory->subsubcategory_name_en }} @endif
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                @endforeach
-                                                <!-- Start Sub Sub category foreach  -->
-                                            </div>
-                                            @endforeach
-                                            <!-- /.End Sub category foreach  -->
-
-                                        </div>
-                                        <!-- /.row -->
-                                    </li>
-                                    <!-- /.yamm-content -->
-                                </ul>
-                                <!-- /.dropdown-menu -->
-                            </li>
-                            @endforeach
-                            <!-- End Category foreach  -->
-                            <!-- /.menu-item -->
-
-
-
-                            <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
-                                    data-toggle="dropdown"><i class="icon fa fa-paper-plane"></i>Kids and Babies</a>
-                                <!-- /.dropdown-menu -->
-                            </li>
-                            <!-- /.menu-item -->
-
-                            <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
-                                    data-toggle="dropdown"><i class="icon fa fa-futbol-o"></i>Sports</a>
-                                <!-- ================================== MEGAMENU VERTICAL ================================== -->
-                                <!-- /.dropdown-menu -->
-                                <!-- ================================== MEGAMENU VERTICAL ================================== -->
-                            </li>
-                            <!-- /.menu-item -->
-
-                            <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
-                                    data-toggle="dropdown"><i class="icon fa fa-envira"></i>Home and Garden</a>
-                                <!-- /.dropdown-menu -->
-                            </li>
-                            <!-- /.menu-item -->
-
-                        </ul>
-                        <!-- /.nav -->
-                    </nav>
-                    <!-- /.megamenu-horizontal -->
-                </div>
-                <!-- /.side-menu -->
-                <!-- ================================== TOP NAVIGATION : END ================================== -->
+                <!-- ============ TOP NAVIGATION ================================== -->
+                @include('frontend.common.vertical_menu')
+                <!-- ============= TOP NAVIGATION : END ================================== -->
 
 
 
@@ -170,6 +77,7 @@ Home Blackbox - Online Shop
                                         </a>
                                     </h3>
                                     <div class="rating rateit-small"></div>
+                                    
                                     @if($product->discount_price == NULL)
                                     <div class="product-price">
                                         <span class="price"> {{ $product->selling_price }} </span>
@@ -291,22 +199,7 @@ Home Blackbox - Online Shop
 
 
                 <!-- ============================================== PRODUCT TAGS ============================================== -->
-                <div class="sidebar-widget product-tag wow fadeInUp">
-                    <h3 class="section-title">Product tags</h3>
-                    <div class="sidebar-widget-body outer-top-xs">
-                        <div class="tag-list"> <a class="item" title="Phone" href="category.html">Phone</a> <a
-                                class="item active" title="Vest" href="category.html">Vest</a> <a class="item"
-                                title="Smartphone" href="category.html">Smartphone</a> <a class="item" title="Furniture"
-                                href="category.html">Furniture</a> <a class="item" title="T-shirt"
-                                href="category.html">T-shirt</a> <a class="item" title="Sweatpants"
-                                href="category.html">Sweatpants</a> <a class="item" title="Sneaker"
-                                href="category.html">Sneaker</a> <a class="item" title="Toys"
-                                href="category.html">Toys</a> <a class="item" title="Rose" href="category.html">Rose</a>
-                        </div>
-                        <!-- /.tag-list -->
-                    </div>
-                    <!-- /.sidebar-widget-body -->
-                </div>
+                @include('frontend.common.product_tags')
                 <!-- /.sidebar-widget -->
                 <!-- ============================================== PRODUCT TAGS : END ============================================== -->
 
@@ -409,43 +302,7 @@ Home Blackbox - Online Shop
 
                 <!-- ============================================== Testimonials============================================== -->
 
-                <div class="sidebar-widget wow fadeInUp outer-top-vs">
-                    <div id="advertisement" class="advertisement">
-                        <div class="item">
-                            <div class="avatar"><img
-                                    src="{{ asset('frontend/assets/images/testimonials/member1.png') }}" alt="Image">
-                            </div>
-                            <div class="testimonials"><em>"</em> Vtae sodales aliq uam morbi non sem lacus port
-                                mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-                            <div class="clients_author">John Doe <span>Abc Company</span> </div>
-                            <!-- /.container-fluid -->
-                        </div>
-                        <!-- /.item -->
-
-                        <div class="item">
-                            <div class="avatar"><img
-                                    src="{{ asset('frontend/assets/images/testimonials/member3.png') }}" alt="Image">
-                            </div>
-                            <div class="testimonials"><em>"</em>Vtae sodales aliq uam morbi non sem lacus port
-                                mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-                            <div class="clients_author">Stephen Doe <span>Xperia Designs</span> </div>
-                        </div>
-                        <!-- /.item -->
-
-                        <div class="item">
-                            <div class="avatar"><img
-                                    src="{{ asset('frontend/assets/images/testimonials/member2.png') }}" alt="Image">
-                            </div>
-                            <div class="testimonials"><em>"</em> Vtae sodales aliq uam morbi non sem lacus port
-                                mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-                            <div class="clients_author">Saraha Smith <span>Datsun &amp; Co</span> </div>
-                            <!-- /.container-fluid -->
-                        </div>
-                        <!-- /.item -->
-
-                    </div>
-                    <!-- /.owl-carousel -->
-                </div>
+                  @include('frontend.common.testomonials')
 
                 <!-- ============================================== Testimonials: END ============================================== -->
 
