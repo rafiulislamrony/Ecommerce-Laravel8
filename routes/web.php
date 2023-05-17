@@ -137,3 +137,12 @@ Route::get('/language/english', [LanguageController::class, 'English'])->name('e
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
 /// Frontend Product Tags ////
 Route::get('/product/tag/{tag}', [IndexController::class, 'TagWiseProduct']);
+/// Frontend SubCategory wise data Tags ////
+Route::get('/subcategory/product/{subcat_id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
+/// Frontend SubSubCategory wise data Tags ////
+Route::get('/subsubcategory/product/{subsubcat_id}/{slug}', [IndexController::class, 'SubSubCatWiseProduct']);
+
+
+/// Product View Modal With Ajax ////
+Route::get('/product/view/model/{id}', [IndexController::class, 'ProductViewAjax']);
+

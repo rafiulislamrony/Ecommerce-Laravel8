@@ -3,7 +3,7 @@
 @section('content')
 
 @section('title')
-Tag Wise Product | Blackbox - Online Shop
+Subcategory Wise Product | Blackbox - Online Shop
 @endsection
 
 
@@ -64,7 +64,7 @@ Tag Wise Product | Blackbox - Online Shop
                                                 @foreach ($subcategories as $subcategory)
                                                 <ul>
                                                     <li>
-                                                        <a ref="#">
+                                                        <a href="{{ url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug_en ) }}">
                                                             @if(session()->get('language') == 'hindi') {{
                                                             $subcategory->subcategory_name_hin }} @else {{
                                                             $subcategory->subcategory_name_en }} @endif
@@ -461,7 +461,7 @@ Tag Wise Product | Blackbox - Online Shop
                         <div class="text-right">
                             <div class="pagination-container">
                                 <ul class="list-inline list-unstyled">
-                                   {{$products->links()}}
+                                    {{$products->links()}}
                                 </ul>
                                 <!-- /.list-inline -->
                             </div>

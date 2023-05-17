@@ -149,7 +149,7 @@
                                                 <div class="controls">
                                                     <input type="text" name="product_qty"
                                                         value="{{ $products->product_qty }}" class="form-control"
-                                                        required="">
+                                                      >
                                                     @error('product_qty')
                                                     <span class="text-danger">{{ $message }} </span>
                                                     @enderror
@@ -191,7 +191,7 @@
                                                 <div class="controls">
                                                     <input type="text" name="product_size_en"
                                                         value="{{ $products->product_size_en }}" class="form-control"
-                                                        value="S,M,L" data-role="tagsinput" required="" />
+                                                        value="S,M,L" data-role="tagsinput"/>
                                                     @error('product_size_en')
                                                     <span class="text-danger">{{ $message }} </span>
                                                     @enderror
@@ -204,7 +204,7 @@
                                                 <div class="controls">
                                                     <input type="text" name="product_size_hin"
                                                         value="{{ $products->product_size_hin }}" class="form-control"
-                                                        value="S,M,L" data-role="tagsinput" required="" />
+                                                        value="S,M,L" data-role="tagsinput" />
                                                     @error('product_size_hin')
                                                     <span class="text-danger">{{ $message }} </span>
                                                     @enderror
