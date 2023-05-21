@@ -71,7 +71,7 @@
     <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -102,10 +102,12 @@
     <!-- Add to Card Product Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="top: 50%; transform: translateY(-50%);">
-            <div class="modal-content" >
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> <strong> <span id="pname"></span> </strong> </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <strong> <span id="pname"></span> </strong>
+                    </h5>
+                    <button id="closeModel" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -113,8 +115,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card" style="width: 18rem;">
-                                <img src=" " id="pimage" class="card-img-top" alt="..."
-                                    style=" width: 100%">
+                                <img src=" " id="pimage" class="card-img-top" alt="..." style=" width: 100%">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -137,22 +138,26 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="co1">Choose Color</label>
-                                <select class="form-control" name="color" id="co1">
+                                <label for="color">Choose Color</label>
+                                <select class="form-control" name="color" id="color">
                                 </select>
                             </div>
                             <div class="form-group" id="sizeArea">
-                                <label for="c2">Choose Size</label>
-                                <select class="form-control" name="size" id="c2">
+                                <label for="size">Choose Size</label>
+                                <select class="form-control" name="size" id="size">
 
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="q1">Quantity </label>
-                                <input type="number" value="1" min="1" class="form-control" id="q1"
-                                    placeholder="name@example.com">
+                                <label for="qty">Quantity </label>
+                                <input type="number" value="1" min="1" class="form-control" id="qty">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Add To Cart</button>
+
+                            <input type="hidden" id="product_id">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <button type="submit" onclick="addToCart()" class="btn btn-primary mb-2">
+                                Add To Cart
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -162,78 +167,192 @@
 
     <script type="text/javascript">
         //  For csrf token setup in meta tag
-    $.ajaxSetup({
-        headers:{
-            'X-CSRF-TOKEN':$('meta([name="csrf-token"])').attr('content')
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    })
+        });
 
-    // Start product View With Model
-    function productView(id){
-        // alert(id)
+        // Start product View Model
+        function productView(id){
+            // alert(id)
+            $.ajax({
+                type: 'GET',
+                url: '/product/view/model/'+id,
+                dataType: 'json',
+                success: function(data){
+                    // console.log(data)
+                    $('#pname').text(data.product.product_name_en);
+                    $('#price').text(data.product.selling_price);
+                    $('#pcode').text(data.product.product_code);
+                    $('#pcategory').text(data.product.category.category_name_en);
+                    $('#pbrand').text(data.product.brand.brand_name_en);
+                    $('#pimage').attr('src','/'+data.product.product_thambnial);
+                    $('#product_id').val(id);
+                    $('#qty').val(1);
+                    // product price product_id
+                    if(data.product.discount_price == null){
+                        $('#pprice').text('');
+                        $('#oldprice').text('');
+                        $('#pprice').text(data.product.selling_price);
+                    }else{
+                        $('#pprice').text(data.product.discount_price);
+                        $('#oldprice').text(data.product.selling_price);
+                    }
+                    // Stock option
+                    if(data.product.product_qty > 0) {
+                    $('#aviable').text('');
+                    $('#stockout').text('');
+                    $('#aviable').text('aviable');
+                    }else{
+                    $('#aviable').text('');
+                    $('#stockout').text('');
+                    $('#stockout').text('stockout');
+                    } // end Stock Option
+
+                    // color
+                    $('select[name="color"]').empty();
+                    $.each(data.color,function(key,value){
+                        $('select[name="color"]').append('<option value=" '+value+' ">'+value+' </option>')
+
+                    }) // end color
+                    // Size
+                    $('select[name="size"]').empty();
+                    $.each(data.size,function(key,value){
+                        $('select[name="size"]').append('<option value=" '+value+' ">'+value+' </option>')
+
+                        if (data.size == "") {
+                            $('#sizeArea').hide();
+                        } else {
+                            $('#sizeArea').show();
+                        }
+
+                    }) // end Size
+
+                }
+            })
+        }
+        // End Product View Model
+
+        // Start Add To Cart Product
+        function addToCart(){
+            var product_name = $('#pname').text();
+            var id = $('#product_id').val();
+            var color = $('#color option:selected').text();
+            var size = $('#size option:selected').text();
+            var quantity = $('#qty').val();
+
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data:{
+                    color:color, size:size, quantity:quantity, product_name:product_name,
+                },
+                url: "/cart/data/store/"+id,
+                success: function(data){
+                    miniCart();
+                    $('#closeModel').click();
+                    // console.log(data)
+
+                    // Start Message
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                    }else{
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+                    }
+                    // End Message
+                }
+            })
+        }
+        // End Add To Cart Product
+    </script>
+
+    <script type="text/javascript">
+        function miniCart(){
         $.ajax({
             type: 'GET',
-            url: '/product/view/model/'+id,
+            url:'/product/mini/cart',
             dataType: 'json',
-            success: function(data){
-                // console.log(data)
-                $('#pname').text(data.product.product_name_en);
-                $('#price').text(data.product.selling_price);
-                $('#pcode').text(data.product.	product_code);
-                $('#pcategory').text(data.product.category.category_name_en);
-                $('#pbrand').text(data.product.brand.brand_name_en);
-                $('#pimage').attr('src','/'+data.product.product_thambnial);
-
-                // product price
-                if(data.product.discount_price == null){
-                    $('#pprice').text('');
-                    $('#oldprice').text('');
-                    $('#pprice').text(data.product.selling_price);
-                }else{
-                    $('#pprice').text(data.product.discount_price);
-                    $('#oldprice').text(data.product.selling_price);
-                }
-                // Stock option
-                if (data.product.product_qty > 0) {
-                $('#aviable').text('');
-                $('#stockout').text('');
-                $('#aviable').text('aviable');
-                }else{
-                $('#aviable').text('');
-                $('#stockout').text('');
-                $('#stockout').text('stockout');
-                } // end Stock Option
-
-
-                // color
-                $('select[name="color"]').empty();
-                $.each(data.color,function(key,value){
-                    $('select[name="color"]').append('<option value=" '+value+' ">'+value+' </option>')
-
-                }) // end color
-                  // Size
-                  $('select[name="size"]').empty();
-                  $.each(data.size,function(key,value){
-                    $('select[name="size"]').append('<option value=" '+value+' ">'+value+' </option>')
-
-                    if (data.size == "") {
-                        $('#sizeArea').hide();
-                    } else {
-                        $('#sizeArea').show();
-                    }
-
-                }) // end Size
-
+            success: function(response){
+                $('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('span[id="cartQty"]').text(response.cartQty);
+                var miniCart = ""
+                $.each(response.carts, function(key,value){
+                    miniCart += `<div class="cart-item product-summary">
+     <div class="row">
+        <div class="col-xs-4">
+            <div class="image">
+                <a href="detail.html">
+                    <img src="/${value.options.image}" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-7">
+            <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+            <div class="price">${value.price} * ${value.qty}</div>
+        </div>
+        <div class="col-xs-1 action">
+            <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)" ><i class="fa fa-trash"></i></button>
+        </div>
+    </div>
+                </div>`
+                });
+                $('#miniCart').html(miniCart);
             }
         })
+     }
+     miniCart();
 
 
+    //  Mini Cart Remove Start
+    function miniCartRemove(rowId){
+        $.ajax({
+            type:'Get',
+            url:'/minicart/product-remove/'+rowId,
+            dataType: 'json',
+            success:function(data){
+                miniCart();
+                // start message
+                const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                    }else{
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+                }
+            }
+        })
     }
+
+    // Mini acart remove end
 
 
 
     </script>
-
 
 
 </body>

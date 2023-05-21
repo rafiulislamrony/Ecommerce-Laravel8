@@ -10,17 +10,16 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-|
 */
 
 Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function () {
@@ -28,9 +27,7 @@ Route::group(['prefix'=> 'admin', 'middleware'=>['admin:admin']], function () {
     Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
-
 Route::middleware(['auth:admin'])->group(function () {
-
     Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
         return view('admin.index');
     })->name('dashboard')->middleware('auth:admin');
@@ -43,7 +40,6 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/change/password', [AdminProfileController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/update/change/password', [AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
 });  // end Middleware admin
-
 
 // User All Route
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
@@ -114,7 +110,6 @@ Route::prefix('product')->group(function () {
 
 });
 
-
 // Admin Slider All Route
 Route::prefix('slider')->group(function () {
     Route::get('/view', [SliderController::class, 'SliderView'])->name('manage-slider');
@@ -126,10 +121,9 @@ Route::prefix('slider')->group(function () {
     Route::get('/delete/{id}', [SliderController::class, 'SliderDelete'])->name('slider.delete');
 });
 
-
 //// Frontend All Routes /////
-/// Multi Language All Routes ////
 
+/// Multi Language All Routes ////
 Route::get('/language/hindi', [LanguageController::class, 'Hindi'])->name('hindi.language');
 
 Route::get('/language/english', [LanguageController::class, 'English'])->name('english.language');
@@ -142,7 +136,13 @@ Route::get('/subcategory/product/{subcat_id}/{slug}', [IndexController::class, '
 /// Frontend SubSubCategory wise data Tags ////
 Route::get('/subsubcategory/product/{subsubcat_id}/{slug}', [IndexController::class, 'SubSubCatWiseProduct']);
 
-
 /// Product View Modal With Ajax ////
 Route::get('/product/view/model/{id}', [IndexController::class, 'ProductViewAjax']);
+
+/// Add to Cart ////
+Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
+/// Mini Cart Get data ////
+Route::get('/product/mini/cart', [CartController::class, 'AddMiniCart']);
+/// Remove Mini Cart data ////
+Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
 
