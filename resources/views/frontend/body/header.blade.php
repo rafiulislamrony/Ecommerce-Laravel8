@@ -9,7 +9,7 @@
                         <li><a href="#"><i class="icon fa fa-user"></i>
                                 @if(session()->get('language') == 'hindi')मेरी प्रोफाइल @else My profile @endif
                             </a></li>
-                        <li><a href="#"><i class="icon fa fa-heart"></i>
+                        <li><a href="{{ route('wishlist') }}"><i class="icon fa fa-heart"></i>
                                 @if(session()->get('language') == 'hindi')इच्छा-सूची @else Wishlist @endif
                             </a></li>
                         <li><a href="#"><i class="icon fa fa-shopping-cart"></i>
@@ -19,7 +19,7 @@
                                 @if(session()->get('language') == 'hindi')चेक आउट @else Checkout @endif
                             </a></li>
                         @auth
-                        <li><a href="{{ route('login') }}"><i class="icon fa fa-user"></i>
+                        <li><a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>
                                 @if(session()->get('language') == 'hindi')उपयोगकर्ता रूपरेखा @else User Profile @endif
                             </a></li>
                         @else
