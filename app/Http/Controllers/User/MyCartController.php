@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 class MyCartController extends Controller
 {
-    //
     public function MyCart(){
         return view('frontend.wishlist.view_mycart');
     }
+
     public function GetCartProduct(){
         $carts = Cart::content();
         $cartQty = Cart::count();
@@ -30,17 +30,10 @@ class MyCartController extends Controller
     public function CartIncrement($rowId){
         $row = Cart::get($rowId);
         Cart::update($rowId, $row->qty + 1);
-
-        return response()->json('increment');
-
     } // end mehtod
-    public function CartDecrement($rowId){
 
+    public function CartDecrement($rowId){
         $row = Cart::get($rowId);
         Cart::update($rowId, $row->qty - 1);
-
-        return response()->json('Decrement');
-
     }// end mehtod
-
 }
