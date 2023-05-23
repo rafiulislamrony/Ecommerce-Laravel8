@@ -65,8 +65,8 @@ class CouponsController extends Controller
        $notification = [
         'message' => 'Coupon Deleted Successfully',
         'alert-type' => 'info'
-    ];
-    return redirect()->back()->with($notification);
+         ];
+      return redirect()->back()->with($notification);
     }
 
 }
