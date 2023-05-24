@@ -32,8 +32,8 @@ class MyCartController extends Controller
         return response()->json(['success' => 'Successfully Remove From Cart']);
     }
 
-     // Cart Increment
-     public function CartIncrement($rowId){
+    // Cart Increment
+    public function CartIncrement($rowId){
         $row = Cart::get($rowId);
         Cart::update($rowId, $row->qty + 1);
 
@@ -52,8 +52,7 @@ class MyCartController extends Controller
 
     } // end mehtod
 
-
-   // Cart Decrement
+    // Cart Decrement
     public function CartDecrement($rowId){
 
         $row = Cart::get($rowId);

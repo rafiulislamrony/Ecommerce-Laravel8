@@ -57,9 +57,7 @@ class BrandController extends Controller
         $old_img = $request->old_image;
 
         if($request->file('brand_image')){
-
             unlink($old_img);
-
             $image = $request->file('brand_image');
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300, 300)->save('upload/brand/'.$name_gen);

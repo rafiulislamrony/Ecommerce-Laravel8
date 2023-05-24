@@ -21,27 +21,27 @@ My Cart Page
 <div class="body-content">
     <div class="container">
         <div class="row shopping-cart">
-            <div class="col-12"> 
-                    <div class="shopping-cart-table ">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="cart-romove item">Image</th>
-                                        <th class="cart-product-name item">Product Name</th>
-                                        <th class="cart-edit item">Color</th>
-                                        <th class="cart-edit item">Size</th>
-                                        <th class="cart-qty item">Quantity</th>
-                                        <th class="cart-sub-total item">Subtotal</th>
-                                        <th class="cart-total last-item">Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cartPage">
+            <div class="col-12">
+                <div class="shopping-cart-table ">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cart-romove item">Image</th>
+                                    <th class="cart-product-name item">Product Name</th>
+                                    <th class="cart-edit item">Color</th>
+                                    <th class="cart-edit item">Size</th>
+                                    <th class="cart-qty item">Quantity</th>
+                                    <th class="cart-sub-total item">Subtotal</th>
+                                    <th class="cart-total last-item">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartPage">
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
             </div>
 
             <div class="col-md-4 col-sm-12 estimate-ship-tax">
@@ -89,10 +89,10 @@ My Cart Page
                         <tr>
                             <td>
                                 <div class="cart-checkout-btn pull-right">
-                                    <button type="submit" class="btn btn-primary checkout-btn">
-                                        PROCCED TO
-                                        CHEKOUT</button>
-
+                                    <a href="{{ route('checkout') }}" type="submit"
+                                        class="btn btn-primary checkout-btn">
+                                        PROCCED TO CHEKOUT
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -110,5 +110,5 @@ My Cart Page
             </div>
         </div>
     </div><!-- /.body-content -->
-
-    @endsection
+</div>
+@endsection

@@ -67,7 +67,7 @@
     <script src="{{ asset('frontend/assets/js/jquery.easing-1.3.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/jquery.rateit.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('frontend/assets/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/scripts.js') }}"></script>
@@ -97,7 +97,6 @@
      }
      @endif
     </script>
-
 
     <!-- Add to Card Product Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -350,7 +349,6 @@
       // Mini acart remove end
     </script>
 
-
     <!-- Add Wishlist Start -->
     <script type="text/javascript">
         function addToWishList(product_id){
@@ -571,22 +569,22 @@
 
         // cartDecrement Start
         function cartDecrement(rowId){
-           $.ajax({
-            type:'GET',
-            url: "/cart-decrement/"+rowId,
-            dataType:'json',
-            success:function(data){
-                couponCalculation();
-                cart();
-                miniCart();
-            }
-        });
+            $.ajax({
+                type:'GET',
+                url: "/cart-decrement/"+rowId,
+                dataType:'json',
+                success:function(data){
+                    couponCalculation();
+                    cart();
+                    miniCart();
+                }
+            });
+        }
 
-    }
     </script>
     <!-- My Cart page End -->
 
-    <!--  //////////////// =========== Coupon Apply Start ================= ////  -->
+    <!--  =========== Coupon Apply Start =========  -->
     <script type="text/javascript">
         function applyCoupon(){
          var coupon_name = $('#coupon_name').val();
@@ -682,12 +680,9 @@
         couponCalculation();
 
     </script>
+    <!--  =========== End Coupon Apply Start =========  -->
 
-    <!--   =========== End Coupon Apply Start ============ ////  -->
-
-
-    <!--   =========== Start Coupon Remove============= ////  -->
-
+    <!--  ========== Start Coupon Remove =========  -->
     <script type="text/javascript">
         function couponRemove(){
           $.ajax({
@@ -730,6 +725,7 @@
 
        }
     </script>
+    <!--  ========== End Coupon Remove =========  -->
 
 </body>
 
