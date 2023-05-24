@@ -160,7 +160,7 @@ Route::get('/mycart', [MyCartController::class, 'MyCart'])->name('mycart');
 Route::get('/user/get-cart-product', [MyCartController::class, 'GetCartProduct']);
 Route::get('/user/cart-remove/{rowid}', [MyCartController::class, 'RemoveCartProduct']);
 
-Route::get('/cart-increment/{rowid}', [MyCartController::class, 'CartIncrement']);
+Route::get('/cart-increment/{rowId}', [MyCartController::class, 'CartIncrement']);
 
 Route::get('/cart-decrement/{rowId}', [MyCartController::class, 'CartDecrement']);
 
@@ -193,9 +193,13 @@ Route::prefix('shipping')->group(function () {
     Route::get('/state/edit/{id}', [ShippingAreaController::class, 'StateEdit'])->name('state.edit');
     Route::post('/state/update/{id}', [ShippingAreaController::class, 'StateUpdate'])->name('state.update');
     Route::get('/state/delete/{id}', [ShippingAreaController::class, 'StateDelete'])->name('state.delete');
-
     Route::get('/division/ajax/{division_id}', [ShippingAreaController::class, 'Getdistrict']);
-
 });
 
+// Frontend Coupon Option
 
+Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+
+Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
+
+Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
