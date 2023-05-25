@@ -16,6 +16,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\MyCartController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\StripeController;
 use App\Models\User;
 
 /*
@@ -154,15 +155,16 @@ Route::group(['prefix'=>'user','middleware'=>['user','auth'],'namespace'=>'User'
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+
+    Route::post('/stripe/order', [StripeController::class, 'StripeOdrer'])->name('stripe.order');
+
 });
 
 /// Mycart Page ////
 Route::get('/mycart', [MyCartController::class, 'MyCart'])->name('mycart');
 Route::get('/user/get-cart-product', [MyCartController::class, 'GetCartProduct']);
 Route::get('/user/cart-remove/{rowid}', [MyCartController::class, 'RemoveCartProduct']);
-
 Route::get('/cart-increment/{rowId}', [MyCartController::class, 'CartIncrement']);
-
 Route::get('/cart-decrement/{rowId}', [MyCartController::class, 'CartDecrement']);
 
 // Coupons All Route Start
