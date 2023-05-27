@@ -17,6 +17,8 @@ use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\MyCartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\User\AllUserController;
+use App\Http\Controllers\User\CashController;
 use App\Models\User;
 
 /*
@@ -79,14 +81,12 @@ Route::prefix('category')->group(function () {
     Route::post('/update/{id}', [CategoryController::class, 'CategoryUpdate'])->name('category.update');
     Route::get('/delete/{id}', [CategoryController::class, 'CategoryDelete'])->name('category.delete');
 
-
     // Admin Sub Category All Routes all.subcategory
     Route::get('/sub/view', [SubCategoryController::class, 'SubCategoryView'])->name('all.subcategory');
     Route::post('/sub/store', [SubCategoryController::class, 'SubCategoryStore'])->name('subcategory.store');
     Route::get('/sub/edit/{id}', [SubCategoryController::class, 'SubCategoryEdit'])->name('subcategory.edit');
     Route::post('/sub/update', [SubCategoryController::class, 'SubSubCategoryUpdate'])->name('subcategory.update');
     Route::get('/sub/delete/{id}', [SubCategoryController::class, 'SubCategoryDelete'])->name('subcategory.delete');
-
 
     // Admin Sub-> SubCategory All Routes all.subcategory
     Route::get('/sub/sub/view', [SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory');
@@ -96,7 +96,6 @@ Route::prefix('category')->group(function () {
     Route::get('/sub/sub/edit/{id}', [SubCategoryController::class, 'SubSubCategoryEdit'])->name('subsubcategory.edit');
     Route::post('/sub/sub/update', [SubCategoryController::class, 'SubSubCategoryUpdate'])->name('subsubcategory.update');
     Route::get('/sub/sub/delete/{id}', [SubCategoryController::class, 'SubSubCategoryDelete'])->name('subsubcategory.delete');
-
 });
 
 // Admin Products All Route
@@ -152,11 +151,19 @@ Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishL
 
 /// Wishlist Page ////
 Route::group(['prefix'=>'user','middleware'=>['user','auth'],'namespace'=>'User'], function () {
+
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
 
+
+    /// Payment system Route ////
     Route::post('/stripe/order', [StripeController::class, 'StripeOdrer'])->name('stripe.order');
+    Route::get('/my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
+    Route::get('/order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
+    Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
+
+    Route::get('/invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
 
 });
 
@@ -200,19 +207,11 @@ Route::prefix('shipping')->group(function () {
 });
 
 // Frontend Coupon Option
-
 Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
-
 Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
-
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
-
 // Check Out Routes
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
-
 Route::get('/district-get/ajax/{division_id}', [CheckoutController::class, 'DistrictGetAjax']);
-
 Route::get('/state-get/ajax/{district_id}', [CheckoutController::class, 'StateGetAjax']);
-
-
 Route::post('/checkout/store', [CheckoutController::class, 'CheckOutStore'])->name('checkout.store');

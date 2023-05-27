@@ -215,7 +215,7 @@ My Checkout
                                                 <label class="form-check-label" for="t3">
                                                     Cash
                                                 </label>
-                                                <img src="{{ asset('frontend/assets/images/payments/2.png') }}" alt="">
+                                                <img src="{{ asset('frontend/assets/images/payments/6.png') }}" alt="">
                                             </div>
                                         </div>
                                         <div class="col-12">

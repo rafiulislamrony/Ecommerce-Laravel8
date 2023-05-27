@@ -4,12 +4,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Auth;
-use Illuminate\Validation\Rules\Unique;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Ordermail;

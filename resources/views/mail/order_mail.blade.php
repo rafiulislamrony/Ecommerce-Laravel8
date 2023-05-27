@@ -78,10 +78,10 @@
                                                                 style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative;">
                                                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative;">
 
-                                                                    <tr> <td> Invoice No : {{ $order['invoice_no'] }} </td> </tr>
+                                                                    {{-- <tr> <td> Invoice No : {{ $order['invoice_no'] }} </td> </tr> --}}
                                                                     <tr> <td> Amount : ${{ $order['amount'] }}</td> </tr>
                                                                     <tr> <td> Name : {{ $order['name'] }}</td> </tr>
-                                                                    <tr> <td> Email : {{ $order['email'] }}</td> </tr>
+                                                                    <tr> <td> Email : {{ $order['email'] }}</td> </tr> 
 
                                                                 </table>
                                                             </td>
