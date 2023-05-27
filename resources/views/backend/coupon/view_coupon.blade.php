@@ -40,7 +40,6 @@
                                             @else
                                             <span class="badge badge-pill badge-danger"> Invalid </span>
                                             @endif
-
                                         </td>
 
                                         <td>

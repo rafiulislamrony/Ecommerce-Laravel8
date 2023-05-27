@@ -89,7 +89,7 @@
                             </tr>
                             <tr>
                                 <th> Order Total : </th>
-                                <th>{{ $order->amount }} </th>
+                                <th>${{ $order->amount }} </th>
                             </tr>
                             <tr>
                                 <th>Order : </th>
@@ -105,6 +105,7 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col-12">
                 <div class="table-responsive">
                     <table class="table">
@@ -135,40 +136,49 @@
                         </thead>
                         <tbody>
                             @foreach($orderItem as $item)
-                            <tr>
-                                <td>
-                                    <label for="">
-                                        <img src="{{ asset($item->product->product_thambnial) }}" style="width: 50px;" alt="">
-                                    </label>
-                                </td>
-                                <td>
-                                    <label for=""> {{ $item->product->product_name_en }}</label>
-                                </td>
-                                <td>
-                                    <label for=""> {{ $item->product->product_code }}</label>
-                                </td>
-                                <td>
-                                    <label for=""> {{ $item->color }}</label>
-                                </td>
-                                <td>
-                                    <label for=""> {{ $item->size }}</label>
-                                </td>
-                                <td>
-                                    <label for=""> {{ $item->qty }}</label>
-                                </td>
-                                <td>
-                                    <label for="">
-                                        ${{ $item->price }}
-                                        (${{ $item->price * $item->qty }})
+                                <tr>
+                                    <td>
+                                        <label for="">
+                                            <img src="{{ asset($item->product->product_thambnial) }}" style="width: 50px;" alt="">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for=""> {{ $item->product->product_name_en }}</label>
+                                    </td>
+                                    <td>
+                                        <label for=""> {{ $item->product->product_code }}</label>
+                                    </td>
+                                    <td>
+                                        <label for=""> {{ $item->color }}</label>
+                                    </td>
+                                    <td>
+                                        <label for=""> {{ $item->size }}</label>
+                                    </td>
+                                    <td>
+                                        <label for=""> {{ $item->qty }}</label>
+                                    </td>
+                                    <td>
+                                        <label for="">
+                                            ${{ $item->price }}
+                                            (${{ $item->price * $item->qty }})
 
-                                    </label>
-                                </td>
-                            </tr>
+                                        </label>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            @if ($order->status !== "delivered")
+
+            @else
+                <div class="form-group">
+                    <label for="label">Order Return Reson</label>
+                    <textarea name="return_reason" id="" class="form-control" cols="30" rows="4"> Return Reason </textarea>
+                </div>
+            @endif
         </div>
     </div>
 </div>
