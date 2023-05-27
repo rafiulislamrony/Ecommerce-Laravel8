@@ -40,7 +40,7 @@
                                         <td>
                                             <a href="{{ route('pending.orders.details',$item->id) }}" class="btn btn-info"
                                                 title="Oeder Details"><i class="fa fa-eye"></i> </a>
-                                            <a href="{{ route('coupon.delete',$item->id) }}" class="btn btn-danger"
+                                            <a href="{{ route('delete_order',$item->id) }}" class="btn btn-danger"
                                                 title="Delete Data" id="delete">
                                                 <i class="fa fa-trash"></i>
                                             </a>

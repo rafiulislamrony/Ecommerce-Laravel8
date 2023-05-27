@@ -40,9 +40,10 @@
                                         <td>
                                             <a href="{{ route('pending.orders.details',$item->id) }}" class="btn btn-info"
                                                 title="Oeder Details"><i class="fa fa-eye"></i> </a>
-                                            <a href="{{ route('coupon.delete',$item->id) }}" class="btn btn-danger"
-                                                title="Delete Data" id="delete">
-                                                <i class="fa fa-trash"></i>
+
+                                            <a target="_balnk" href="{{ route('invoice.download',$item->id) }}" class="btn btn-danger"
+                                                title="Invoice Download">
+                                                <i class="fa fa-download"></i>
                                             </a>
                                         </td>
 
