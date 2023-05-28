@@ -15,7 +15,9 @@
             <a class="btn btn-primary btn-sm btn-block" href="{{ route('dashboard') }}">Home</a>
             <a class="btn btn-primary btn-sm btn-block" href="{{ route('user.profile') }}">Profile Update</a>
             <a class="btn btn-primary btn-sm btn-block" href="{{ route('change.password') }}">Change Password</a>
-            <a class="btn btn-primary btn-sm btn-block" href="{{ route('my.orders') }}">Orders</a>
+            <a class="btn btn-primary btn-sm btn-block" href="{{ route('my.orders') }}">My Orders</a>
+            <a class="btn btn-primary btn-sm btn-block" href="{{ route('return.order.list') }}">Return Orders</a>
+            <a class="btn btn-primary btn-sm btn-block" href="{{ route('cancel.orders') }}">Cancle Order</a>
             <a class="btn btn-danger btn-sm btn-block" href="{{ route('user.logout') }}">Logout</a>
         </ul>
 </div>

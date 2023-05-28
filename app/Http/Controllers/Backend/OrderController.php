@@ -127,7 +127,7 @@ class OrderController extends Controller
 
     public function DeleteOrder($order_id)
     {
-       Order::with('orderdelete')->where('id', $order_id)->delete();
+        Order::with('orderdelete')->where('id', $order_id)->delete();
 
         $notification = array(
             'message' => 'Order Delete Successfully',
@@ -135,5 +135,33 @@ class OrderController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    public function ReturnOrder(Request $request, $order_id)
+    {
+        Order::findOrFail($order_id)->update([
+            'return_date'=> Carbon::now()->format('D F Y'),
+            'return_reason'=> $request->return_reason,
+        ]);
+
+        $notification = array(
+            'message' => 'Return Request Send Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('my.orders')->with($notification);
+
+    }//End Method
+
+    public function ReturnOrderList()
+    {
+        $orders = Order::where('user_id', Auth::id())->where('return_reason', '!=', null)->orderBy('id', 'DESC')->get();
+        return view('frontend.user.order.return_order_view', compact('orders'));
+    }
+    public function UserCancelOrders()
+    {
+        $orders = Order::where('user_id', Auth::id())->where('status', 'cancle')->orderBy('id', 'DESC')->get();
+        return view('frontend.user.order.cancel_order_view', compact('orders'));
+    }
+
 
 }

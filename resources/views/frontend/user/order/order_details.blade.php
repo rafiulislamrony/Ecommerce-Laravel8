@@ -62,7 +62,7 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4><b>Order Details</b> <span class="text-danger" >Invoice:{{ $order->invoice_no }}</span></h4>
+                        <h4><b>Order Details</b> <span class="text-danger">Invoice:{{ $order->invoice_no }}</span></h4>
                     </div>
                     <hr>
                     <div class="card-body" style="background: #E9EBEC;">
@@ -95,7 +95,7 @@
                                 <th>Order : </th>
                                 <th>
                                     <span class="badge badge-pill badge-warning" style="background: #418DB9;">
-                                    {{ $order->status }}
+                                        {{ $order->status }}
                                     </span>
                                 </th>
                             </tr>
@@ -136,49 +136,69 @@
                         </thead>
                         <tbody>
                             @foreach($orderItem as $item)
-                                <tr>
-                                    <td>
-                                        <label for="">
-                                            <img src="{{ asset($item->product->product_thambnial) }}" style="width: 50px;" alt="">
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <label for=""> {{ $item->product->product_name_en }}</label>
-                                    </td>
-                                    <td>
-                                        <label for=""> {{ $item->product->product_code }}</label>
-                                    </td>
-                                    <td>
-                                        <label for=""> {{ $item->color }}</label>
-                                    </td>
-                                    <td>
-                                        <label for=""> {{ $item->size }}</label>
-                                    </td>
-                                    <td>
-                                        <label for=""> {{ $item->qty }}</label>
-                                    </td>
-                                    <td>
-                                        <label for="">
-                                            ${{ $item->price }}
-                                            (${{ $item->price * $item->qty }})
+                            <tr>
+                                <td>
+                                    <label for="">
+                                        <img src="{{ asset($item->product->product_thambnial) }}" style="width: 50px;"
+                                            alt="">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label for=""> {{ $item->product->product_name_en }}</label>
+                                </td>
+                                <td>
+                                    <label for=""> {{ $item->product->product_code }}</label>
+                                </td>
+                                <td>
+                                    <label for=""> {{ $item->color }}</label>
+                                </td>
+                                <td>
+                                    <label for=""> {{ $item->size }}</label>
+                                </td>
+                                <td>
+                                    <label for=""> {{ $item->qty }}</label>
+                                </td>
+                                <td>
+                                    <label for="">
+                                        ${{ $item->price }}
+                                        (${{ $item->price * $item->qty }})
 
-                                        </label>
-                                    </td>
-                                </tr>
+                                    </label>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            @if ($order->status !== "delivered")
+            @if ($order->status !== "dalivered")
 
             @else
+
+            @php
+            $order = App\Models\Order::where('id', $order->id)->where('return_reason', '=', NULL)->first();
+            @endphp
+            @if ($order)
+            <form action="{{ route('return.order',$order->id) }}" method="post">
+                @csrf
                 <div class="form-group">
                     <label for="label">Order Return Reson</label>
-                    <textarea name="return_reason" id="" class="form-control" cols="30" rows="4"> Return Reason </textarea>
+                    <textarea name="return_reason" id="" class="form-control" cols="30"
+                        rows="4"> Return Reason </textarea>
                 </div>
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </form>
+            @else
+            <span class="badge badge-pill badge-warning" style="background: red;" >
+                You have Send Return Request
+            </span>
+
             @endif
+
+            @endif
+            <br>
+            <br>
         </div>
     </div>
 </div>

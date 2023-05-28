@@ -240,5 +240,10 @@ Route::prefix('orders')->group(function () {
 
     Route::get('/order/delete/{order_id}', [OrderController::class, 'DeleteOrder'])->name('delete_order');
 
+    Route::post('/return/order/{order_id}', [OrderController::class, 'ReturnOrder'])->name('return.order');
+
+    Route::get('/return/order/list', [OrderController::class, 'ReturnOrderList'])->name('return.order.list');
+    Route::get('/cancel/orders', [OrderController::class, 'UserCancelOrders'])->name('cancel.orders');
+
 
 });
