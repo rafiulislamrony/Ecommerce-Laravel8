@@ -9,7 +9,7 @@
             <div class="col-lg-8">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Category list</h3>
+                        <h3 class="box-title">Category list <span class="badge badge-pill badge-danger">{{ count($category) }} </span></h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

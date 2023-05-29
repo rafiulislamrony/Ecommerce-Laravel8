@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AdminProfileController extends Controller
 {
@@ -81,5 +82,12 @@ class AdminProfileController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function AllUsers(){
+        $users = User::latest()->get();
+        return view('backend.user.all_user', compact('users'));
+
+    }
+
 
 }

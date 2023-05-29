@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CouponsController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\ReportsController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\CartController;
@@ -152,20 +153,16 @@ Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishL
 
 /// Wishlist Page ////
 Route::group(['prefix'=>'user','middleware'=>['user','auth'],'namespace'=>'User'], function () {
-
     Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
     Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
-
 
     /// Payment system Route ////
     Route::post('/stripe/order', [StripeController::class, 'StripeOdrer'])->name('stripe.order');
     Route::get('/my/orders', [AllUserController::class, 'MyOrders'])->name('my.orders');
     Route::get('/order_details/{order_id}', [AllUserController::class, 'OrderDetails']);
     Route::post('/cash/order', [CashController::class, 'CashOrder'])->name('cash.order');
-
     Route::get('/invoice_download/{order_id}', [AllUserController::class, 'InvoiceDownload']);
-
 });
 
 /// Mycart Page ////
@@ -243,7 +240,22 @@ Route::prefix('orders')->group(function () {
     Route::post('/return/order/{order_id}', [OrderController::class, 'ReturnOrder'])->name('return.order');
 
     Route::get('/return/order/list', [OrderController::class, 'ReturnOrderList'])->name('return.order.list');
-    Route::get('/cancel/orders', [OrderController::class, 'UserCancelOrders'])->name('cancel.orders');
-
+    Route::get('/all/cancel/orders', [OrderController::class, 'UserCancelOrders'])->name('cancel.orders');
 
 });
+
+// Admin Reports Route
+Route::prefix('reports')->group(function () {
+    Route::get('/view', [ReportsController::class, 'ReportView'])->name('all-reports');
+    Route::post('/search/by/date', [ReportsController::class, 'ReportByDate'])->name('search-by-date');
+    Route::post('/search/by/month', [ReportsController::class, 'ReportByMonth'])->name('search-by-month');
+    Route::post('/search/by/year', [ReportsController::class, 'ReportByYear'])->name('search-by-year');
+});
+
+// Admin Get All User Route
+Route::prefix('alluser')->group(function () {
+
+    Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
+
+});
+

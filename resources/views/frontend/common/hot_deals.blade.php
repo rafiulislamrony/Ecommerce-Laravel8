@@ -1,10 +1,11 @@
- <!-- ================ HOT DEALS ============================================== -->
+<!-- ================ HOT DEALS ============================================== -->
 @php
- $hot_deals = App\Models\Product::where('hot_deals', 1)->where('discount_price', '!=', null)->orderby('id', 'DESC')->limit(3)->get();
+$hot_deals = App\Models\Product::where('hot_deals', 1)->where('discount_price', '!=', null)->orderby('id',
+'DESC')->limit(3)->get();
 
 @endphp
 
- <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+<div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
     <h3 class="section-title">hot deals</h3>
     <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
         @foreach ($hot_deals as $product)
@@ -30,20 +31,16 @@
 
                     <div class="timing-wrapper">
                         <div class="box-wrapper">
-                            <div class="date box"> <span class="key">120</span> <span
-                                    class="value">DAYS</span> </div>
+                            <div class="date box"> <span class="key">120</span> <span class="value">DAYS</span> </div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="hour box"> <span class="key">20</span> <span
-                                    class="value">HRS</span> </div>
+                            <div class="hour box"> <span class="key">20</span> <span class="value">HRS</span> </div>
                         </div>
                         <div class="box-wrapper">
-                            <div class="minutes box"> <span class="key">36</span> <span
-                                    class="value">MINS</span> </div>
+                            <div class="minutes box"> <span class="key">36</span> <span class="value">MINS</span> </div>
                         </div>
                         <div class="box-wrapper hidden-md">
-                            <div class="seconds box"> <span class="key">60</span> <span
-                                    class="value">SEC</span> </div>
+                            <div class="seconds box"> <span class="key">60</span> <span class="value">SEC</span> </div>
                         </div>
                     </div>
 
@@ -52,8 +49,7 @@
 
                 <div class="product-info text-left m-t-20">
                     <h3 class="name">
-                        <a
-                            href="{{ url('product/details/'.$product->id. '/'.$product->product_slug_en) }}">
+                        <a href="{{ url('product/details/'.$product->id. '/'.$product->product_slug_en) }}">
                             @if(session()->get('language') == 'hindi') {{
                             $product->product_name_hin }} @else {{
                             $product->product_name_en }} @endif
@@ -80,10 +76,13 @@
                 <div class="cart clearfix animate-effect">
                     <div class="action">
                         <div class="add-cart-button btn-group">
-                            <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                <i class="fa fa-shopping-cart"></i> </button>
-                            <button class="btn btn-primary cart-btn" type="button">Add to
-                                cart</button>
+                            <button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal"
+                                data-target="#exampleModal" id="{{ $product->id }}" onclick="productView(this.id)">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                            <button class="btn btn-primary cart-btn" type="button"
+                            type="button" title="Add Cart" data-toggle="modal"
+                            data-target="#exampleModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to cart</button>
                         </div>
                     </div>
                     <!-- /.action -->
